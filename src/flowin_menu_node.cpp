@@ -394,12 +394,12 @@ flowin_menu_group_list build_flowin_menu_groups()
     // root
     if (auto root = flowin_menu_group::new_group(flowin_menu_group_root))
     {
-        if (auto node = root->new_node(menu_commands::new_flowin, pfc::stringcvt::string_utf8_from_wide(L"新建浮窗").get_ptr))
+        if (auto node = root->new_node(menu_commands::new_flowin, pfc::stringcvt::string_utf8_from_wide(L"新建浮窗").get_ptr()))
         {
             node->action = [](cfg_t&) { flowin_core::get()->create_flowin(); };
         }
 
-        if (auto node = root->new_node(menu_commands::show_all, pfc::stringcvt::string_utf8_from_wide(L"显示全部").get_ptr))
+        if (auto node = root->new_node(menu_commands::show_all, pfc::stringcvt::string_utf8_from_wide(L"显示全部").get_ptr()))
         {
             node->action = [](cfg_t&)
             {
@@ -423,7 +423,7 @@ flowin_menu_group_list build_flowin_menu_groups()
             };
         }
 
-        if (auto node = root->new_node(menu_commands::close_all, pfc::stringcvt::string_utf8_from_wide(L"全部关闭").get_ptr))
+        if (auto node = root->new_node(menu_commands::close_all, pfc::stringcvt::string_utf8_from_wide(L"全部关闭").get_ptr()))
         {
             node->action = [](cfg_t&)
             { configuration::for_each([](const cfg_flowin_host::sp_t& config) { notify_flowin(config, WM_CLOSE); }); };
