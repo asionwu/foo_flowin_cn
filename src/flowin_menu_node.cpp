@@ -201,7 +201,7 @@ flowin_menu_group::sp_t build_flowin_menu_nodes()
         // new snap group
         if (auto snap_group_node = group->new_node(menu_commands::invalid, "", flowin_menu_show_on_all))
         {
-            auto snap_group = flowin_menu_group::new_group(flowin_menu_group_submenu, "Snap");
+            auto snap_group = flowin_menu_group::new_group(flowin_menu_group_submenu, pfc::stringcvt::string_utf8_from_wide(L"吸附").get_ptr());
             snap_group_node->child_group = snap_group;
 
             if (auto node =
@@ -234,7 +234,7 @@ flowin_menu_group::sp_t build_flowin_menu_nodes()
                 };
             }
 
-            if (auto node = snap_group->new_node(menu_commands::snap_hide, "Hide", flowin_menu_show_on_all))
+            if (auto node = snap_group->new_node(menu_commands::snap_hide, pfc::stringcvt::string_utf8_from_wide(L"隐藏").get_ptr(), flowin_menu_show_on_all))
             {
                 node->action = [id = node->id](cfg_t& config) { notify_flowin_command(config, id); };
 
@@ -248,7 +248,7 @@ flowin_menu_group::sp_t build_flowin_menu_nodes()
                 };
             }
 
-            if (auto node = snap_group->new_node(menu_commands::snap_show, "Show", flowin_menu_show_on_all))
+            if (auto node = snap_group->new_node(menu_commands::snap_show, pfc::stringcvt::string_utf8_from_wide(L"显示").get_ptr(), flowin_menu_show_on_all))
             {
                 node->action = [id = node->id](cfg_t& config) { notify_flowin_command(config, id); };
 
@@ -276,7 +276,7 @@ flowin_menu_group::sp_t build_flowin_menu_nodes()
             };
         }
 
-        if (auto node = group->new_node(menu_commands::edit_mode, "Edit mode", flowin_menu_show_on_all))
+        if (auto node = group->new_node(menu_commands::edit_mode, pfc::stringcvt::string_utf8_from_wide(L"编辑模式").get_ptr(), flowin_menu_show_on_all))
         {
             node->action = [id = node->id](cfg_t& config) { notify_flowin_command(config, id); };
 
