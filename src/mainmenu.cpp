@@ -24,7 +24,7 @@ public:
 
         if (node_->id == menu_commands::identify)
         {
-            text = config_ ? config_->window_title : pfc::stringcvt::string_utf8_from_wide(L"未知").get_ptr;
+            text = config_ ? config_->window_title : pfc::stringcvt::string_utf8_from_wide(L"未知").get_ptr();
             flags = mainmenu_commands::flag_disabled;
         }
         else
@@ -149,11 +149,11 @@ public:
                 switch (group->group)
                 {
                 case flowin_menu_group_active:
-                    text = pfc::stringcvt::string_utf8_from_wide(L"激活").get_ptr;
+                    text = pfc::stringcvt::string_utf8_from_wide(L"激活").get_ptr();
                     return;
 
                 case flowin_menu_group_live:
-                    text = group->config ? group->config->window_title : pfc::stringcvt::string_utf8_from_wide(L"未知").get_ptr;
+                    text = group->config ? group->config->window_title : pfc::stringcvt::string_utf8_from_wide(L"未知").get_ptr();
                     return;
 
                 default:
@@ -167,7 +167,7 @@ public:
             }
         }
         // default
-        text = pfc::stringcvt::string_utf8_from_wide(L"浮窗").get_ptr;
+        text = pfc::stringcvt::string_utf8_from_wide(L"浮窗").get_ptr();
     }
 
     t_size get_children_count() override
@@ -200,7 +200,7 @@ public:
 
     void get_name(t_uint32 p_index, pfc::string_base& p_out) override
     {
-        p_out = pfc::stringcvt::string_utf8_from_wide(L"浮窗菜单").get_ptr;
+        p_out = pfc::stringcvt::string_utf8_from_wide(L"浮窗菜单").get_ptr();
     }
 
     bool get_description(t_uint32 p_index, pfc::string_base& p_out) override
