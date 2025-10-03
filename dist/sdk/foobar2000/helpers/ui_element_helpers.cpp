@@ -139,14 +139,14 @@ void ui_element_helpers::ui_element_edit_tools::standard_edit_context_menu(LPARA
 		}
 		WIN32_OP_D( menu.AppendMenu(MF_STRING | MF_DISABLED,ID_LABEL,pfc::stringcvt::string_os_from_utf8(name)) );
 		WIN32_OP_D( menu.AppendMenu(MF_SEPARATOR,(UINT_PTR)0,TEXT("")) );
-		WIN32_OP_D( menu.AppendMenu(MF_STRING,ID_REPLACE,pfc::stringcvt::string_os_from_utf8(ReplaceUIElementCommand)) );
+		WIN32_OP_D( menu.AppendMenu(MF_STRING,ID_REPLACE,ReplaceUIElementCommand) );
 	}
 	WIN32_OP_D( menu.AppendMenu(MF_SEPARATOR,(UINT_PTR)0,TEXT("")) );
 	
 	//menu.AppendMenu(MF_STRING,ID_REPLACE,TEXT(ReplaceUIElementCommand));
-	WIN32_OP_D( menu.AppendMenu(MF_STRING | (sourceItemEmpty ? (MF_DISABLED|MF_GRAYED) : 0),ID_CUT,pfc::stringcvt::string_os_from_utf8(CutUIElementCommand)) );
-	WIN32_OP_D( menu.AppendMenu(MF_STRING | (sourceItemEmpty ? (MF_DISABLED|MF_GRAYED) : 0),ID_COPY,pfc::stringcvt::string_os_from_utf8(CopyUIElementCommand)) );
-	WIN32_OP_D( menu.AppendMenu(MF_STRING | (api->is_paste_available() ? 0 : (MF_DISABLED|MF_GRAYED)),ID_PASTE,pfc::stringcvt::string_os_from_utf8(PasteUIElementCommand)) );
+	WIN32_OP_D( menu.AppendMenu(MF_STRING | (sourceItemEmpty ? (MF_DISABLED|MF_GRAYED) : 0),ID_CUT,CutUIElementCommand) );
+	WIN32_OP_D( menu.AppendMenu(MF_STRING | (sourceItemEmpty ? (MF_DISABLED|MF_GRAYED) : 0),ID_COPY,CopyUIElementCommand) );
+	WIN32_OP_D( menu.AppendMenu(MF_STRING | (api->is_paste_available() ? 0 : (MF_DISABLED|MF_GRAYED)),ID_PASTE,PasteUIElementCommand) );
 
 	unsigned custom_walk = ID_CUSTOM_BASE;
 	unsigned custom_base_host = ~0, custom_base_client = ~0;
