@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include <shobjidl.h>
 #include <comdef.h>
 #include <dwmapi.h>
@@ -640,9 +640,11 @@ private:
             pfc::string8 element_name;
             uGetWindowText(*this, element_name);
             pfc::string_formatter msg;
-            msg << pfc::stringcvt::string_os_from_utf8(" 你将要删除 \"").get_ptr() << uGetWindowText(*this).c_str()
-                << pfc::stringcvt::string_os_from_utf8("\"。\n 这个操作无法撤消。您要继续吗？").get_ptr();
-            if (uMessageBox(*this, msg, pfc::stringcvt::string_os_from_utf8("警告").get_ptr(), MB_OKCANCEL | MB_ICONWARNING) == IDOK)
+			pfc::string8 text = " 你将要删除 \"";
+			text += uGetWindowText(*this);
+			text += "\"。\n 这个操作无法撤消。您要继续吗？";
+			pfc::stringcvt::string_wide_from_utf8 wtext(text);
+			if (MessageBoxW(*this, wtext.get_ptr(), L"警告", MB_OKCANCEL | MB_ICONWARNING) == IDOK)
                 fb2k::inMainThread([this]() { flowin_core::get()->remove_flowin(this->host_config_->guid, true); });
             break;
         }
