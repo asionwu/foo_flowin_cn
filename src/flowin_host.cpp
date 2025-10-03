@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include <shobjidl.h>
 #include <comdef.h>
 #include <dwmapi.h>
@@ -859,7 +859,7 @@ private:
         SelectObjectScope scope(dc, (HGDIOBJ)callback_->query_font_ex(ui_font_default));
         CRect rc;
         GetClientRect(&rc);
-        dc.DrawText(_T(pfc::stringcvt::string_os_from_utf8("点击添加新元件。")), -1, &rc, DT_NOPREFIX | DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+        dc.DrawText(_T("点击添加新元件。"), -1, &rc, DT_NOPREFIX | DT_CENTER | DT_VCENTER | DT_SINGLELINE);
     }
 
     BOOL on_erase_bkgnd(CDCHandle dc)
