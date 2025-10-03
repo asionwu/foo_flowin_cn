@@ -127,7 +127,7 @@ void ui_element_helpers::ui_element_edit_tools::standard_edit_context_menu(LPARA
 	const bool sourceItemEmpty = !!(sourceItemGuid == pfc::guid_null);
 	
 	if (sourceItemEmpty) {
-		WIN32_OP_D( menu.AppendMenu(MF_STRING,ID_ADD_NEW,pfc::stringcvt::string_os_from_utf8(AddNewUIElementCommand)) );
+		WIN32_OP_D( menu.AppendMenu(MF_STRING,ID_ADD_NEW,AddNewUIElementCommand) );
 		WIN32_OP_D( menu.SetMenuDefaultItem(ID_ADD_NEW) );
 	} else {
 		service_ptr_t<ui_element> elem;
