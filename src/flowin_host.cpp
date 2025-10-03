@@ -21,12 +21,6 @@
 
 using namespace flowin;
 
-int uMessageBoxUTF8(HWND wnd, const char* text, const char* title, UINT flags) {
-    pfc::stringcvt::string_wide_from_utf8 wtext(text);
-    pfc::stringcvt::string_wide_from_utf8 wtitle(title);
-    return MessageBoxW(wnd, wtext, wtitle, flags);
-}
-
 // clang-format off
 typedef CWinTraits<WS_CAPTION | WS_POPUP | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_SYSMENU | WS_THICKFRAME, 0> CFlowinTraits;
 // clang-format on
@@ -646,9 +640,9 @@ private:
 			pfc::string8 element_name;
 			uGetWindowText(*this, element_name);
 			pfc::string_formatter msg;
-			msg << "你将要删除 \"" << uGetWindowText(*this).c_str()
-				<< "\"。\n这个操作无法撤消。您要继续吗？";
-			if (uMessageBoxUTF8(*this, msg, "警告", MB_OKCANCEL | MB_ICONWARNING) == IDOK)
+			msg << u8"你将要删除 \"" << uGetWindowText(*this).c_str()
+				<< u8"\"。\n这个操作无法撤消。您要继续吗？";
+			if (uMessageBox(*this, msg, u8"警告", MB_OKCANCEL | MB_ICONWARNING) == IDOK)
 				fb2k::inMainThread([this]() { flowin_core::get()->remove_flowin(this->host_config_->guid, true); });
 			break;
         }

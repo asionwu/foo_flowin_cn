@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 //! Configuration of a UI element instance.
 class NOVTABLE ui_element_config : public service_base {
@@ -564,19 +564,19 @@ bool ui_element_subclass_description(const GUID & id, pfc::string_base & out);
 
 
 #define ReplaceUIElementCommand "替换新的用户界面组件..."
-#define ReplaceUIElementDescription "以另外一个替换这个组件。"
+#define ReplaceUIElementDescription u8"以另外一个替换这个组件。"
 
 #define CopyUIElementCommand "复制用户界面组件"
-#define CopyUIElementDescription "复制这个组件到 Windows 剪贴板。"
+#define CopyUIElementDescription u8"复制这个组件到 Windows 剪贴板。"
 
 #define PasteUIElementCommand "粘贴用户界面组件"
-#define PasteUIElementDescription "以 Windows 剪贴板的内容替换这个组件。"
+#define PasteUIElementDescription u8"以 Windows 剪贴板的内容替换这个组件。"
 
 #define CutUIElementCommand "剪切用户界面组件"
-#define CutUIElementDescription "复制这个界面组件到剪贴板并替换成一个空界面组件。"
+#define CutUIElementDescription u8"复制这个界面组件到剪贴板并替换成一个空界面组件。"
 
 #define AddNewUIElementCommand "添加新的用户界面组件..."
-#define AddNewUIElementDescription "以一个新的用户界面组件替换所选的空位。"
+#define AddNewUIElementDescription u8"以一个新的用户界面组件替换所选的空位。"
 
 //! \since 2.0
 class NOVTABLE ui_config_callback {
