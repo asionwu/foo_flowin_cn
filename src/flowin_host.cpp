@@ -651,7 +651,7 @@ private:
 			wide_msg.convert(msg);
 			wide_title.convert("警告");
 			
-			if (MessageBoxW(*this, wide_msg, wide_title, MB_OKCANCEL | MB_ICONWARNING) == IDOK)
+			if (uMessageBox(*this, wide_msg, wide_title, MB_OKCANCEL | MB_ICONWARNING) == IDOK)
 				fb2k::inMainThread([this]() { flowin_core::get()->remove_flowin(this->host_config_->guid, true); });
 			break;
         }
