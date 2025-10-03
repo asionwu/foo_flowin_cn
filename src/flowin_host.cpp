@@ -639,10 +639,13 @@ private:
         case menu_commands::destroy_flowin: {
 			pfc::string8 element_name;
 			uGetWindowText(*this, element_name);
-			pfc::string_formatter msg;
-			msg << pfc::stringcvt::string_utf8_from_wide(L"你将要删除 \"") << uGetWindowText(*this).c_str()
-				<< pfc::stringcvt::string_utf8_from_wide(L"\"。\n这个操作无法撤消。您要继续吗？");
-			if (uMessageBox(*this, msg, L"警告", MB_OKCANCEL | MB_ICONWARNING) == IDOK)
+			
+			// 直接使用宽字符消息框
+			std::wstring msg = L"你将要删除 \"";
+			msg += pfc::stringcvt::string_wide_from_utf8(element_name.c_str()).get_ptr();
+			msg += L"\”。\n这个操作无法撤消。您要继续吗？";
+			
+			if (MessageBoxW(*this, msg.c_str(), L"警告", MB_OKCANCEL | MB_ICONWARNING) == IDOK)
 				fb2k::inMainThread([this]() { flowin_core::get()->remove_flowin(this->host_config_->guid, true); });
 			break;
         }
