@@ -640,9 +640,9 @@ private:
             pfc::string8 element_name;
             uGetWindowText(*this, element_name);
             pfc::string_formatter msg;
-            msg << " 你将要删除 \"" << uGetWindowText(*this).c_str()
-                << "\".\n 这个操作无法撤消。您要继续吗？";
-            if (uMessageBox(*this, pfc::stringcvt::string_os_from_utf8(msg), "警告", MB_OKCANCEL | MB_ICONWARNING) == IDOK)
+            msg << pfc::stringcvt::string_os_from_utf8(" 你将要删除 \"") << uGetWindowText(*this).c_str()
+                << pfc::stringcvt::string_os_from_utf8("\".\n 这个操作无法撤消。您要继续吗？");
+            if (uMessageBox(*this, msg, "警告", MB_OKCANCEL | MB_ICONWARNING) == IDOK)
                 fb2k::inMainThread([this]() { flowin_core::get()->remove_flowin(this->host_config_->guid, true); });
             break;
         }
