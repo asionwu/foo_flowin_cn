@@ -21,6 +21,12 @@
 
 using namespace flowin;
 
+int uMessageBoxUTF8(HWND wnd, const char* text, const char* title, UINT flags) {
+    pfc::stringcvt::string_wide_from_utf8 wtext(text);
+    pfc::stringcvt::string_wide_from_utf8 wtitle(title);
+    return MessageBoxW(wnd, wtext, wtitle, flags);
+}
+
 // clang-format off
 typedef CWinTraits<WS_CAPTION | WS_POPUP | WS_VISIBLE | WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_SYSMENU | WS_THICKFRAME, 0> CFlowinTraits;
 // clang-format on
@@ -639,19 +645,10 @@ private:
         case menu_commands::destroy_flowin: {
 			pfc::string8 element_name;
 			uGetWindowText(*this, element_name);
-			
-			// 使用宽字符字符串
-			pfc::stringcvt::string_wide_from_utf8 wide_msg;
-			pfc::stringcvt::string_wide_from_utf8 wide_title;
-			
 			pfc::string_formatter msg;
 			msg << "你将要删除 \"" << uGetWindowText(*this).c_str()
 				<< "\"。\n这个操作无法撤消。您要继续吗？";
-			
-			wide_msg.convert(msg);
-			wide_title.convert("警告");
-			
-			if (uMessageBox(*this, wide_msg, wide_title, MB_OKCANCEL | MB_ICONWARNING) == IDOK)
+			if (uMessageBoxUTF8(*this, msg, "警告", MB_OKCANCEL | MB_ICONWARNING) == IDOK)
 				fb2k::inMainThread([this]() { flowin_core::get()->remove_flowin(this->host_config_->guid, true); });
 			break;
         }
