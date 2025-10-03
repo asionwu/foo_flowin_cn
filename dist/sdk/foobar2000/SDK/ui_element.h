@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 //! Configuration of a UI element instance.
 class NOVTABLE ui_element_config : public service_base {
