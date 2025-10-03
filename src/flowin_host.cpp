@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include <shobjidl.h>
 #include <comdef.h>
 #include <dwmapi.h>
@@ -148,7 +148,7 @@ public:
 
     static void g_get_name(pfc::string_base& out)
     {
-        out = "浮窗";
+        out = pfc::stringcvt::string_utf8_from_wide(L"浮窗");
     }
 
     static ui_element_config::ptr g_get_default_configuration()
@@ -637,16 +637,14 @@ private:
             break;
 
         case menu_commands::destroy_flowin: {
-            pfc::string8 element_name;
-            uGetWindowText(*this, element_name);
-            pfc::string_formatter msg;
-			pfc::string8 text = " 你将要删除 \"";
-			text += uGetWindowText(*this);
-			text += "\"。\n 这个操作无法撤消。您要继续吗？";
-			pfc::stringcvt::string_wide_from_utf8 wtext(text);
-			if (MessageBoxW(*this, wtext.get_ptr(), L"警告", MB_OKCANCEL | MB_ICONWARNING) == IDOK)
-                fb2k::inMainThread([this]() { flowin_core::get()->remove_flowin(this->host_config_->guid, true); });
-            break;
+			pfc::string8 element_name;
+			uGetWindowText(*this, element_name);
+			pfc::string_formatter msg;
+			msg << "你将要删除 \"" << uGetWindowText(*this).c_str()
+				<< "\"。\n这个操作无法撤消。您要继续吗？";
+			if (uMessageBox(*this, msg, "警告", MB_OKCANCEL | MB_ICONWARNING) == IDOK)
+				fb2k::inMainThread([this]() { flowin_core::get()->remove_flowin(this->host_config_->guid, true); });
+			break;
         }
 
         case menu_commands::custom_title: {
@@ -861,7 +859,7 @@ private:
         SelectObjectScope scope(dc, (HGDIOBJ)callback_->query_font_ex(ui_font_default));
         CRect rc;
         GetClientRect(&rc);
-        dc.DrawText(_T("点击添加新元件。"), -1, &rc, DT_NOPREFIX | DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+        dc.DrawText(L"点击添加新元件。", -1, &rc, DT_NOPREFIX | DT_CENTER | DT_VCENTER | DT_SINGLELINE);
     }
 
     BOOL on_erase_bkgnd(CDCHandle dc)
