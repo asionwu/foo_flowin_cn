@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include <shobjidl.h>
 #include <comdef.h>
 #include <dwmapi.h>
@@ -148,7 +148,7 @@ public:
 
     static void g_get_name(pfc::string_base& out)
     {
-        out = "Flowin";
+        out = "浮窗";
     }
 
     static ui_element_config::ptr g_get_default_configuration()
@@ -642,7 +642,7 @@ private:
             pfc::string_formatter msg;
             msg << " 你将要删除 \"" << uGetWindowText(*this).c_str()
                 << "\".\n 这个操作无法撤消。您要继续吗？";
-            if (uMessageBox(*this, msg, "Warning", MB_OKCANCEL | MB_ICONWARNING) == IDOK)
+            if (uMessageBox(*this, pfc::stringcvt::string_os_from_utf8(msg), "警告", MB_OKCANCEL | MB_ICONWARNING) == IDOK)
                 fb2k::inMainThread([this]() { flowin_core::get()->remove_flowin(this->host_config_->guid, true); });
             break;
         }
