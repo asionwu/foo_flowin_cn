@@ -640,12 +640,18 @@ private:
 			pfc::string8 element_name;
 			uGetWindowText(*this, element_name);
 			
-			// 直接使用宽字符消息框
-			std::wstring msg = L"你将要删除 \"";
-			msg += pfc::stringcvt::string_wide_from_utf8(element_name.c_str()).get_ptr();
-			msg += L"\”。\n这个操作无法撤消。您要继续吗？";
+			// 使用宽字符字符串
+			pfc::stringcvt::string_wide_from_utf8 wide_msg;
+			pfc::stringcvt::string_wide_from_utf8 wide_title;
 			
-			if (MessageBoxW(*this, msg.c_str(), L"警告", MB_OKCANCEL | MB_ICONWARNING) == IDOK)
+			pfc::string_formatter msg;
+			msg << "你将要删除 \"" << uGetWindowText(*this).c_str()
+				<< "\"。\n这个操作无法撤消。您要继续吗？";
+			
+			wide_msg.convert(msg);
+			wide_title.convert("警告");
+			
+			if (MessageBoxW(*this, wide_msg, wide_title, MB_OKCANCEL | MB_ICONWARNING) == IDOK)
 				fb2k::inMainThread([this]() { flowin_core::get()->remove_flowin(this->host_config_->guid, true); });
 			break;
         }
