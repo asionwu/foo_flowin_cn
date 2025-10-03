@@ -642,7 +642,7 @@ private:
             pfc::string_formatter msg;
             msg << pfc::stringcvt::string_os_from_utf8(" 你将要删除 \"").get_ptr() << uGetWindowText(*this).c_str()
                 << pfc::stringcvt::string_os_from_utf8("\"。\n 这个操作无法撤消。您要继续吗？").get_ptr();
-            if (uMessageBox(*this, msg, pfc::stringcvt::string_os_from_utf8(("警告").get_ptr(), MB_OKCANCEL | MB_ICONWARNING) == IDOK)
+            if (uMessageBox(*this, msg, pfc::stringcvt::string_os_from_utf8("警告").get_ptr(), MB_OKCANCEL | MB_ICONWARNING) == IDOK)
                 fb2k::inMainThread([this]() { flowin_core::get()->remove_flowin(this->host_config_->guid, true); });
             break;
         }
